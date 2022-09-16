@@ -6,7 +6,7 @@
 
 Adafruit_MPU6050 mpu;
 
-void setup(void)
+void Adafruit6050_setup(void)
 {
     Serial.begin(115200);
 
@@ -89,7 +89,7 @@ void setup(void)
     delay(100);
 }
 
-void loop()
+void Adafruit6050_loop()
 {
 
     /* Get new sensor events with the readings */
