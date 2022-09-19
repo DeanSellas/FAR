@@ -1,9 +1,12 @@
-/*!
- *  @file LED.h
- *
- * 	Basic LED Information and functions
- *
- *	GPL license (see license)
+/**
+ * @file BasicRGB.cpp
+ * @author Dean Sellas (dgsellas@gmail.com)
+ * @brief BasicRGB code. Custom Library to control RGB LEDs. Might release as a standalone library in the future.
+ * @version 1.0
+ * @date 2022-09-18
+ * 
+ * @copyright GNU General Public License v3.0
+ * 
  */
 #include "../pch.h"
 #include "BasicRGB.h"
@@ -28,40 +31,40 @@ namespace BasicRGB
      */
     void BasicRGB::turnOffAll()
     {
-        digitalWrite(RLED, OFF);
-        digitalWrite(GLED, OFF);
-        digitalWrite(BLED, OFF);
+        digitalWrite(RLED, LED_OFF);
+        digitalWrite(GLED, LED_OFF);
+        digitalWrite(BLED, LED_OFF);
     }
 
     /*!
      * @brief Turns On Red LED
      */
-    void BasicRGB::redOn() { digitalWrite(RLED, ON); };
+    void BasicRGB::redOn() { digitalWrite(RLED, LED_ON); };
 
     /*!
      * @brief Turns Off Red LED
      */
-    void BasicRGB::redOff() { digitalWrite(RLED, OFF); };
+    void BasicRGB::redOff() { digitalWrite(RLED, LED_OFF); };
 
     /*!
      * @brief Turns On Green LED
      */
-    void BasicRGB::greenOn() { digitalWrite(GLED, ON); };
+    void BasicRGB::greenOn() { digitalWrite(GLED, LED_ON); };
 
     /*!
      * @bgreenf Turns Off Green LED
      */
-    void BasicRGB::greenOff() { digitalWrite(GLED, OFF); };
+    void BasicRGB::greenOff() { digitalWrite(GLED, LED_OFF); };
 
     /*!
      * @brief Turns On Blue LED
      */
-    void BasicRGB::blueOn() { digitalWrite(BLED, ON); };
+    void BasicRGB::blueOn() { digitalWrite(BLED, LED_ON); };
 
     /*!
      * @brief Turns Off Blue LED
      */
-    void BasicRGB::blueOff() { digitalWrite(BLED, OFF); };
+    void BasicRGB::blueOff() { digitalWrite(BLED, LED_OFF); };
 
     /*!
      * @brief Tests LED; visual purposes only.
@@ -82,4 +85,4 @@ namespace BasicRGB
         delay(1000);
     }
 
-} // namespace BasicRGB
+}

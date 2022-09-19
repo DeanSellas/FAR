@@ -1,19 +1,17 @@
-/*!
- *  @file LED.h
+/**
+ * @file BasicRGB.h
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2022-09-18
  *
- * 	Basic LED Information and functions
- *
- *	GPL license (see license)
+ * @copyright GNU General Public License v3.0
+ * 
  */
 
 #pragma once
 
-// using a common cathode LED; LOW is ON; HIGH is OFF;
-#define ON LOW
-#define OFF HIGH
-// Uncomment these lines if using common anode LED
-// #define ON HIGH
-// #define OFF LOW
+
 
 
 namespace BasicRGB {
@@ -25,6 +23,13 @@ namespace BasicRGB {
         int BLED;
 
     public:
+        /**
+         * @brief Construct a new Basic RGB object
+         * 
+         * @param r Red LED Pin
+         * @param g Green LED Pin
+         * @param b Blue LED Pin
+         */
         BasicRGB(int r, int g, int b) : RLED(r), GLED(g), BLED(b) {};
         ~BasicRGB() {};
         void ledSetup();
