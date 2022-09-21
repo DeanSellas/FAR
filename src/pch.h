@@ -12,6 +12,9 @@
 #pragma once
 
 #include <Arduino.h>
+#include "StateController/StateCodes.h"
+#include "StateController/FailureCodes.h"
+#include "StateController/StateController.h"
 
 // using a common cathode LED; LOW is ON; HIGH is OFF;
 #define LED_ON LOW
