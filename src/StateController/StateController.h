@@ -12,7 +12,7 @@
 #pragma once
 #include "../pch.h"
 
-namespace FAR
+namespace FAR::StateController
 {
     /**
      * @brief State Controller Object
@@ -38,7 +38,7 @@ namespace FAR
          * @param startingFailure (optional) Starting Failure Code for the Computer
          */
         StateController(unsigned char startingState, unsigned char startingFailure = FAILURE_NONE) : _currState(startingState), _failureCode(startingFailure){};
-        ~StateController();
+        ~StateController() {};
 
         /**
          * @brief Get the Current State of the Computer
@@ -54,6 +54,32 @@ namespace FAR
          */
         unsigned char getFailureCode();
 
+        /**
+         * @brief Set the State of the controller
+         * 
+         * @param state
+         */
+        void setState(unsigned char state);
+
+        /**
+         * @brief Set the Failure Code of the Controller
+         * 
+         * @param failure 
+         */
+        void setFailure(unsigned char failure);
+
+        /**
+         * @brief Returns the Current State as a String
+         * 
+         * @return String 
+         */
         String getCurrentStateToString();
+
+        /**
+         * @brief Returns the Current Failure as a String
+         * 
+         * @return String 
+         */
+        String getCurrentFailureToString();
     };
 } // namespace FAR

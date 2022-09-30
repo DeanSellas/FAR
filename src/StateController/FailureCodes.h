@@ -13,3 +13,4 @@
 #include "../pch.h"
 
 #define FAILURE_NONE 0x00
+#define UNDEFINED_ERROR 0x01

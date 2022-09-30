@@ -11,10 +11,18 @@
 
 #include "../pch.h"
 
-namespace FAR
+namespace FAR::StateController
 {
     unsigned char StateController::getCurrentState() { return _currState; }
     unsigned char StateController::getFailureCode() { return _failureCode; }
+
+    void StateController::setState(unsigned char state) { _currState = state; }
+
+    void StateController::setFailure(unsigned char failure)
+    {
+        _failureCode = failure;
+        this->setState(FAILURE);
+    }
 
     String StateController::getCurrentStateToString()
     {
@@ -42,4 +50,18 @@ namespace FAR
             return "Unknown";
         }
     }
+
+    String StateController::getCurrentFailureToString()
+    {
+        switch (_failureCode)
+        {
+            case FAILURE_NONE:
+                return "No Failure";
+            case UNDEFINED_ERROR:
+                return "Undefined Failure";
+            default:
+                return "Unknown";
+        }
+    }
+
 } // namespace FAR
