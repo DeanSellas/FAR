@@ -15,27 +15,41 @@ namespace BasicLED
     class BasicLED
     {
     private:
-        char onBit, offBit;
+        char m_OnBit, m_OffBit;
+        int m_LEDPin;
 
     public:
         /**
          * @brief Construct a new BasicLED object. Assumes Common Cathode LEDs
+         *
+         * @param pin Pin LED is Connected to.
          */
-        BasicLED()
+        BasicLED(int pin) : m_LEDPin(pin)
         {
-            onBit = LOW;
-            offBit = HIGH;
+            m_OnBit = LOW;
+            m_OffBit = HIGH;
         };
 
         /**
          * @brief Construct a new BasicLED object. User defined On and Off Bit
          * 
+         * @param pin Pin LED is Connected to.
          * @param on_bit On Bit (HIGH or LOW), used to turn LEDs on.
          * @param off_bit Off Bit (HIGH or LOW), used to turn LEDs off.
          */
-        BasicLED(char on_bit, char off_bit) : onBit(on_bit), offBit(off_bit) {};
+        BasicLED(int pin, char on_bit, char off_bit) : m_LEDPin(pin), m_OnBit(on_bit), m_OffBit(off_bit){};
 
         ~BasicLED(){};
+
+        /**
+         * @brief Turns LED On
+         */
+        void LEDOn();
+
+        /**
+         * @brief Turns LED Off 
+         */
+        void LEDOff();
     };
 
 } // namespace BasicLED
