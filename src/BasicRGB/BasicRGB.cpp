@@ -2,7 +2,7 @@
  * @file BasicRGB.cpp
  * @author Dean Sellas (dgsellas@gmail.com)
  * @brief BasicRGB code. Custom Library to control RGB LEDs. Might release as a standalone library in the future.
- * @version 1.0
+ * @version 0.1
  * @date 2022-09-18
  * 
  * @copyright GNU General Public License v3.0
@@ -13,10 +13,6 @@
 
 namespace BasicRGB
 {
-
-    /*!
-     * @brief Sets up LED pinmodes
-     */
     void BasicRGB::ledSetup()
     {
         turnOffAll();
@@ -26,49 +22,26 @@ namespace BasicRGB
         pinMode(GLED, OUTPUT);
         pinMode(BLED, OUTPUT);
     }
-    /*!
-     * @brief Turns off all LEDs
-     */
+    
     void BasicRGB::turnOffAll()
     {
-        digitalWrite(RLED, LED_OFF);
-        digitalWrite(GLED, LED_OFF);
-        digitalWrite(BLED, LED_OFF);
+        digitalWrite(RLED, offBit);
+        digitalWrite(GLED, offBit);
+        digitalWrite(BLED, offBit);
     }
 
-    /*!
-     * @brief Turns On Red LED
-     */
-    void BasicRGB::redOn() { digitalWrite(RLED, LED_ON); };
+    void BasicRGB::redOn() { digitalWrite(RLED, onBit); };
 
-    /*!
-     * @brief Turns Off Red LED
-     */
-    void BasicRGB::redOff() { digitalWrite(RLED, LED_OFF); };
+    void BasicRGB::redOff() { digitalWrite(RLED, offBit); };
 
-    /*!
-     * @brief Turns On Green LED
-     */
-    void BasicRGB::greenOn() { digitalWrite(GLED, LED_ON); };
+    void BasicRGB::greenOn() { digitalWrite(GLED, onBit); };
 
-    /*!
-     * @bgreenf Turns Off Green LED
-     */
-    void BasicRGB::greenOff() { digitalWrite(GLED, LED_OFF); };
+    void BasicRGB::greenOff() { digitalWrite(GLED, offBit); };
 
-    /*!
-     * @brief Turns On Blue LED
-     */
-    void BasicRGB::blueOn() { digitalWrite(BLED, LED_ON); };
+    void BasicRGB::blueOn() { digitalWrite(BLED, onBit); };
 
-    /*!
-     * @brief Turns Off Blue LED
-     */
-    void BasicRGB::blueOff() { digitalWrite(BLED, LED_OFF); };
-
-    /*!
-     * @brief Tests LED; visual purposes only.
-     */
+    void BasicRGB::blueOff() { digitalWrite(BLED, offBit); };
+ 
     void BasicRGB::basicColorTest()
     {
         redOn();
