@@ -93,7 +93,9 @@ namespace BasicRGB
 
         /*!
          * @brief Tests LED; visual purposes only.
+         *
+         * @param t time to wait between color change. Defaults to 1000ms
          */
-        void basicColorTest();
+        void basicColorTest(int t = 1000);
     };
 }

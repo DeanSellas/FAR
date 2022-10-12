@@ -56,9 +56,9 @@ namespace FAR::StateController
         switch (_failureCode)
         {
             case FAILURE_NONE:
-                return "No Failure";
+                return "[0x00] No Failure";
             case UNDEFINED_ERROR:
-                return "Undefined Failure";
+                return "[0x01] Undefined Failure";
             default:
                 return "Unknown";
         }
