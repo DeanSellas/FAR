@@ -10,15 +10,16 @@
  */
 
 #pragma once
+#include "BasicLED.h"
 
 namespace BasicLED
 {
     class BasicRGB
     {
     private:
-        int RLED;
-        int GLED;
-        int BLED;
+        BasicLED *m_redLED;
+        BasicLED *m_greenLED;
+        BasicLED *m_blueLED;
         char onBit, offBit;
 
     public:
@@ -46,7 +47,7 @@ namespace BasicLED
         /**
          * @brief Destroy the BasicRGB object.
          */
-        ~BasicRGB(){};
+        ~BasicRGB();
 
         /*!
          * @brief Sets up LED pinmodes

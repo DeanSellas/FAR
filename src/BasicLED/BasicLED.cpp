@@ -29,6 +29,10 @@ namespace BasicLED
             break;
         }
     };
+    void BasicLED::LEDSetup()
+    {
+        pinMode(m_LEDPin, OUTPUT);
+    }
     void BasicLED::LEDOn()
     {
         digitalWrite(m_LEDPin, m_OnBit);

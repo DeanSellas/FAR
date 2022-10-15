@@ -38,6 +38,11 @@ namespace BasicLED
         ~BasicLED(){};
 
         /**
+         * @brief Sets up LED pinmode
+         *
+         */
+        void LEDSetup();
+        /**
          * @brief Turns LED On
          */
         void LEDOn();
