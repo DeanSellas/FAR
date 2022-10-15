@@ -56,20 +56,21 @@ namespace BasicLED
 
     void BasicRGB::blueOff() { digitalWrite(BLED, offBit); };
  
-    void BasicRGB::basicColorTest()
+    void BasicRGB::basicColorTest(int t = 1000)
     {
+        Serial.println("Begin Color Test");
         redOn();
-        delay(1000);
+        delay(t);
         redOff();
-        delay(1000);
+        delay(t);
         greenOn();
-        delay(1000);
+        delay(t);
         greenOff();
-        delay(1000);
+        delay(t);
         blueOn();
-        delay(1000);
+        delay(t);
         blueOff();
-        delay(1000);
+        delay(t);
     }
 
 }

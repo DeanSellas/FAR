@@ -18,12 +18,12 @@ FAR::StateController::StateController computerStateController_main;
 
 BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
 
+bool endLoop = false;
 void setup(void)
 {
     computerStatusLED_main.ledSetup();
 
     Adafruit6050_setup();
-    computerStatusLED_main.basicColorTest();
 
     if (computerStateController_main.getFailureCode() == FAILURE_NONE)
     {
@@ -37,13 +37,20 @@ void setup(void)
 
 void loop(void)
 {
+    // if error is thrown and logged, stop all code execution.
+    if(endLoop)
+        return;
+
     switch (computerStateController_main.getCurrentState())
     {
     // if failure do nothing
     case (FAILURE):
-        Serial.println(computerStateController_main.getFailureCode());
+        Serial.print("Failure Code: ");
+        Serial.println(computerStateController_main.getCurrentFailureToString());
+        endLoop = true;
         return;
-    case (BOOT):
+    case (ON_PAD_TESTS):
+        computerStatusLED_main.basicColorTest();
         computerStateController_main.setFailure(UNDEFINED_ERROR);
         return;
     }
