@@ -24,20 +24,16 @@ namespace BasicLED
          *
          * @param pin Pin LED is Connected to.
          */
-        BasicLED(int pin) : m_LEDPin(pin)
-        {
-            m_OnBit = LOW;
-            m_OffBit = HIGH;
-        };
+        BasicLED(int pin, LEDTypes type = LEDTypes::Cathode);
 
         /**
          * @brief Construct a new BasicLED object. User defined On and Off Bit
-         * 
+         *
          * @param pin Pin LED is Connected to.
          * @param on_bit On Bit (HIGH or LOW), used to turn LEDs on.
          * @param off_bit Off Bit (HIGH or LOW), used to turn LEDs off.
          */
-        BasicLED(int pin, char on_bit, char off_bit) : m_LEDPin(pin), m_OnBit(on_bit), m_OffBit(off_bit){};
+        // BasicLED(int pin, char on_bit, char off_bit) : m_LEDPin(pin), m_OnBit(on_bit), m_OffBit(off_bit){};
 
         ~BasicLED(){};
 
@@ -47,7 +43,7 @@ namespace BasicLED
         void LEDOn();
 
         /**
-         * @brief Turns LED Off 
+         * @brief Turns LED Off
          */
         void LEDOff();
     };

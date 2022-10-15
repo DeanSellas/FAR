@@ -11,7 +11,7 @@
 
 #pragma once
 
-namespace BasicRGB
+namespace BasicLED
 {
     class BasicRGB
     {
@@ -28,12 +28,9 @@ namespace BasicRGB
          * @param r Red LED Pin
          * @param g Green LED Pin
          * @param b Blue LED Pin
+         * @param type LED Type
          */
-        BasicRGB(int r, int g, int b) : RLED(r), GLED(g), BLED(b)
-        {
-            onBit = LOW;
-            offBit = HIGH;
-        };
+        BasicRGB(int r, int g, int b, LEDTypes type = LEDTypes::Cathode);
 
         /**
          * @brief Construct a new BasicRGB object. Custom on and off bit preference.
@@ -44,7 +41,7 @@ namespace BasicRGB
          * @param on On Bit (HIGH or LOW), used to turn on LEDs
          * @param off Off Bit (HIGH or LOW), used to turn off LEDs
          */
-        BasicRGB(int r, int g, int b, char on, char off) : RLED(r), GLED(g), BLED(b), onBit(on), offBit(off){};
+        // BasicRGB(int r, int g, int b, char on, char off) : RLED(r), GLED(g), BLED(b), onBit(on), offBit(off){};
 
         /**
          * @brief Destroy the BasicRGB object.

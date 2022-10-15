@@ -11,8 +11,22 @@
 #include "../pch.h"
 #include "BasicRGB.h"
 
-namespace BasicRGB
-{
+namespace BasicLED
+{   
+    BasicRGB::BasicRGB(int r, int g, int b, LEDTypes type = LEDTypes::Cathode) : RLED(r), GLED(g), BLED(b)
+    {
+        switch (type)
+        {
+        case (LEDTypes::Cathode):
+            onBit = LOW;
+            offBit = HIGH;
+            break;
+        case (LEDTypes::Anode):
+            onBit = HIGH;
+            offBit = LOW;
+            break;
+        }
+    };
     void BasicRGB::ledSetup()
     {
         turnOffAll();

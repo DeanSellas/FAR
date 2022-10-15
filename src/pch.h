@@ -16,6 +16,8 @@
 #include "StateController/FailureCodes.h"
 #include "StateController/StateController.h"
 
+#include "BasicLED/LEDTypes.h"
+
 // using a common cathode LED; LOW is ON; HIGH is OFF;
 #define LED_ON LOW
 #define LED_OFF HIGH

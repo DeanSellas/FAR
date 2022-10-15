@@ -11,11 +11,12 @@
 
 #include "src/pch.h"
 #include "src/mpu6050test/adafruit_mpu6050.h"
-#include "src/BasicRGB/BasicRGB.h"
+#include "src/BasicLED/BasicRGB.h"
+#include "src/BasicLED/BasicLED.h"
 
 FAR::StateController::StateController computerStateController_main;
 
-BasicRGB::BasicRGB computerStatusLED_main(12, 11, 10);
+BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
 
 void setup(void)
 {

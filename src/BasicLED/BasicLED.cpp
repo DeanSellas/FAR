@@ -14,6 +14,21 @@
 
 namespace BasicLED
 {
+    BasicLED::BasicLED(int pin, LEDTypes type = LEDTypes::Cathode) : m_LEDPin(pin)
+    {
+        switch (type)
+        {
+        case (LEDTypes::Cathode):
+            m_OnBit = LOW;
+            m_OffBit = HIGH;
+            break;
+
+        case (LEDTypes::Anode):
+            m_OnBit = LOW;
+            m_OffBit = HIGH;
+            break;
+        }
+    };
     void BasicLED::LEDOn()
     {
         digitalWrite(m_LEDPin, m_OnBit);
