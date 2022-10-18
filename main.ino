@@ -10,20 +10,22 @@
  */
 
 #include "src/pch.h"
-#include "src/mpu6050test/adafruit_mpu6050.h"
+#include "src/Sensors/MPU6050/mpu6050.h"
 #include "src/BasicLED/BasicRGB.h"
 #include "src/BasicLED/BasicLED.h"
 
 FAR::StateController::StateController computerStateController_main;
 
 BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
-
+Sensors::MPU6050* mainMPU;
 bool endLoop = false;
 void setup(void)
 {
+    Serial.begin(115200);
+    Serial.println("FAR Initilizing...");
     computerStatusLED_main.ledSetup();
 
-    Adafruit6050_setup();
+    mainMPU = new Sensors::MPU6050();
 
     if (computerStateController_main.getFailureCode() == FAILURE_NONE)
     {
