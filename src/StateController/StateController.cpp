@@ -13,21 +13,29 @@
 
 namespace FAR::StateController
 {
-    unsigned char StateController::getCurrentState() { return _currState; }
-    unsigned char StateController::getFailureCode() { return _failureCode; }
+    // initialize state controller to nullptr on launch
+    StateController *StateController::m_instance = 0;
 
-    void StateController::setState(unsigned char state) { _currState = state; }
+    unsigned char StateController::getCurrentState() { return this->_currState; }
+    unsigned char StateController::getFailureCode() { return this->_failureCode; }
+
+    void StateController::setState(unsigned char state)
+    {
+        this->_currState = state;
+    }
 
     void StateController::setFailure(unsigned char failure)
     {
-        _failureCode = failure;
+        this->_failureCode = failure;
         this->setState(FAILURE);
     }
 
     String StateController::getCurrentStateToString()
     {
-        switch (_currState)
+        switch (this->_currState)
         {
+        case FAILURE:
+            return this->getCurrentFailureToString();
         case BOOT:
             return "Boot";
         case ON_PAD_TESTS:
@@ -53,14 +61,14 @@ namespace FAR::StateController
 
     String StateController::getCurrentFailureToString()
     {
-        switch (_failureCode)
+        switch (this->_failureCode)
         {
-            case FAILURE_NONE:
-                return "[0x00] No Failure";
-            case UNDEFINED_ERROR:
-                return "[0x01] Undefined Failure";
-            default:
-                return "Unknown";
+        case FAILURE_NONE:
+            return "[0x00] No Failure";
+        case UNDEFINED_ERROR:
+            return "[0x01] Undefined Failure";
+        default:
+            return "Unknown";
         }
     }
 

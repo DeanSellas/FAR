@@ -14,24 +14,26 @@
 #include "src/BasicLED/BasicRGB.h"
 #include "src/BasicLED/BasicLED.h"
 
-FAR::StateController::StateController computerStateController_main;
+FAR::StateController::StateController* stateController;
 
 BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
 
 bool endLoop = false;
 void setup(void)
 {
+    Serial.begin(115200);
+    stateController = stateController->GetInstance();
     computerStatusLED_main.ledSetup();
 
     Adafruit6050_setup();
 
-    if (computerStateController_main.getFailureCode() == FAILURE_NONE)
+    if (stateController->getFailureCode() == FAILURE_NONE)
     {
-        computerStateController_main.setState(ON_PAD_TESTS);
+        stateController->setState(ON_PAD_TESTS);
     }
     else
     {
-        computerStateController_main.setState(FAILURE);
+        stateController->setState(FAILURE);
     }
 }
 
@@ -41,17 +43,20 @@ void loop(void)
     if(endLoop)
         return;
 
-    switch (computerStateController_main.getCurrentState())
+    switch (stateController->getCurrentState())
     {
     // if failure do nothing
     case (FAILURE):
         Serial.print("Failure Code: ");
-        Serial.println(computerStateController_main.getCurrentFailureToString());
+        Serial.println(stateController->getCurrentFailureToString());
+
         endLoop = true;
         return;
     case (ON_PAD_TESTS):
         computerStatusLED_main.basicColorTest();
-        computerStateController_main.setFailure(UNDEFINED_ERROR);
+        Serial.println(stateController->getCurrentStateToString());
+        stateController->setFailure(UNDEFINED_ERROR);
+
         return;
     }
 }
