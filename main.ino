@@ -27,35 +27,36 @@ void setup(void)
     computerStatusLED_main.ledSetup();
 
     mainMPU = new Sensors::MPU6050();
-
+    
     if (stateController->getFailureCode() == FAILURE_NONE)
     {
         stateController->setState(ON_PAD_TESTS);
-    }
-    else
-    {
-        stateController->setState(FAILURE);
     }
 }
 
 void loop(void)
 {
     // if error is thrown and logged, stop all code execution.
-    if(endLoop)
-        return;
 
     switch (stateController->getCurrentState())
     {
     // if failure do nothing
     case (FAILURE):
-        Serial.print("Failure Code: ");
-        Serial.println(stateController->getCurrentFailureToString());
-
+        if(!endLoop)
+        {
+            Serial.print("Failure Code: ");
+            Serial.println(stateController->getCurrentFailureToString());
+        }
+        computerStatusLED_main.redOn();
+        delay(1000);
+        computerStatusLED_main.redOff();
+        delay(1000);
         endLoop = true;
         return;
     case (ON_PAD_TESTS):
-        computerStatusLED_main.basicColorTest();
-        Serial.println(stateController->getCurrentStateToString());
+        computerStatusLED_main.blueOn();
+        mainMPU->Calibrate();
+        computerStatusLED_main.blueOff();
         stateController->setFailure(UNDEFINED_ERROR);
 
         return;

@@ -39,6 +39,10 @@ namespace Sensors
         Serial.println("MPU6050 Found!");
 
         m_adafruitMPU.setAccelerometerRange(MPU6050_RANGE_8_G);
+        m_adafruitMPU.setGyroRange(MPU6050_RANGE_500_DEG);
+        m_adafruitMPU.setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+#if DEBUG
         Serial.print("Accelerometer range set to: ");
         switch (m_adafruitMPU.getAccelerometerRange())
         {
@@ -55,7 +59,8 @@ namespace Sensors
             Serial.println("+-16G");
             break;
         }
-        m_adafruitMPU.setGyroRange(MPU6050_RANGE_500_DEG);
+
+
         Serial.print("Gyro range set to: ");
         switch (m_adafruitMPU.getGyroRange())
         {
@@ -72,8 +77,6 @@ namespace Sensors
             Serial.println("+- 2000 deg/s");
             break;
         }
-
-        m_adafruitMPU.setFilterBandwidth(MPU6050_BAND_21_HZ);
         Serial.print("Filter bandwidth set to: ");
         switch (m_adafruitMPU.getFilterBandwidth())
         {
@@ -101,13 +104,59 @@ namespace Sensors
         }
 
         Serial.println("");
+#endif
+
         delay(100);
     }
-    
+
     bool MPU6050::Connect()
     {
         m_connected = m_adafruitMPU.begin();
         return m_connected;
+    }
+
+    void MPU6050::Calibrate(int samples = 100)
+    {
+        Serial.print("Beginning MPU6050 Calibration\nPlease Do not move device durring this phase.");
+        float accelerationValues[3] = {0.0f, 0.0f, 0.0f};
+        float gyroValues[3] = {0.0f, 0.0f, 0.0f};
+        for (int i = 0; i < samples; i++)
+        {
+            Serial.print('.');
+            sensors_event_t a, g, t;
+            m_adafruitMPU.getEvent(&a, &g, &t);
+            accelerationValues[0] += a.acceleration.x;
+            accelerationValues[1] += a.acceleration.y;
+            accelerationValues[2] += a.acceleration.z;
+
+            gyroValues[0] += g.gyro.x;
+            gyroValues[1] += g.gyro.y;
+            gyroValues[2] += g.gyro.z;
+            delay(100);
+        }
+        m_accelerationCalibration[0] = accelerationValues[0] / samples;
+        m_accelerationCalibration[2] = accelerationValues[2] / samples;
+        m_accelerationCalibration[3] = accelerationValues[3] / samples;
+
+        m_gyroCalibration[0] = gyroValues[0] / samples;
+        m_gyroCalibration[1] = gyroValues[1] / samples;
+        m_gyroCalibration[2] = gyroValues[2] / samples;
+#if DEBUG
+        Serial.println("\nDone Calibrating!");
+        Serial.print("Offset Acceleration Values: ");
+        Serial.print(m_accelerationCalibration[0]);
+        Serial.print(", ");
+        Serial.print(m_accelerationCalibration[1]);
+        Serial.print(", ");
+        Serial.println(m_accelerationCalibration[2]);
+
+        Serial.print("Offset Gyro Values:");
+        Serial.print(m_gyroCalibration[0]);
+        Serial.print(", ");
+        Serial.print(m_gyroCalibration[1]);
+        Serial.print(", ");
+        Serial.println(m_gyroCalibration[2]);
+#endif
     }
 
     void MPU6050::PrintValues()

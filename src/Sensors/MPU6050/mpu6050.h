@@ -44,6 +44,8 @@ namespace Sensors
          */
         bool Connect();
 
+        void Calibrate(int samples = 100);
+
         void PrintValues();
     };
 

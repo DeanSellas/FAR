@@ -18,6 +18,9 @@
 
 #include "BasicLED/LEDTypes.h"
 
+// Debug Value used to disable Serial Logging (saves a lot of memory)
+#define DEBUG 0
+
 // using a common cathode LED; LOW is ON; HIGH is OFF;
 #define LED_ON LOW
 #define LED_OFF HIGH
