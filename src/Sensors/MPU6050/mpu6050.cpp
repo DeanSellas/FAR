@@ -4,28 +4,36 @@
  * @brief mpu6050 code, currently based on adafruits demo. will change it in the future.
  * @version 0.1
  * @date 2022-10-17
- * 
+ *
  * @copyright GNU General Public License v3.0
- * 
+ *
  */
 
 #include "mpu6050.h"
 #include <Adafruit_Sensor.h>
-
 
 namespace Sensors
 {
     MPU6050::MPU6050()
     {
         Serial.println("Adafruit MPU6050 test!");
-
+        m_stateController = m_stateController->GetInstance();
         // Try to initialize!
-        if (!m_adafruitMPU.begin())
+        if (!this->Connect())
         {
+            int i = 0;
             Serial.println("Failed to find MPU6050 chip");
-            while (1)
+            Serial.print("Trying Again...");
+            while (i++ < 10 && !this->Connect())
             {
-                delay(10);
+                delay(1000);
+                Serial.print('.');
+            }
+            if (!m_connected)
+            {
+                m_stateController->setFailure(MPU_NOT_FOUND);
+                Serial.println("No MPU6050 Found.");
+                return;
             }
         }
         Serial.println("MPU6050 Found!");
@@ -95,7 +103,12 @@ namespace Sensors
         Serial.println("");
         delay(100);
     }
-    MPU6050::~MPU6050() {}
+    
+    bool MPU6050::Connect()
+    {
+        m_connected = m_adafruitMPU.begin();
+        return m_connected;
+    }
 
     void MPU6050::PrintValues()
     {
@@ -128,5 +141,3 @@ namespace Sensors
         Serial.println("");
     }
 } // namespace Sensors::MPU6050
-
-
