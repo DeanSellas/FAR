@@ -30,6 +30,11 @@ namespace FAR::StateController
         this->setState(FAILURE);
     }
 
+    bool StateController::isFailure()
+    {
+        return this->_currState != FAILURE;
+    }
+
     String StateController::getCurrentStateToString()
     {
         switch (this->_currState)
