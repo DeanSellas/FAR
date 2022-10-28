@@ -32,7 +32,7 @@ namespace FAR::StateController
 
     bool StateController::isFailure()
     {
-        return this->_currState != FAILURE;
+        return this->_currState == FAILURE;
     }
 
     String StateController::getCurrentStateToString()
