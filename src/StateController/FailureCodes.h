@@ -13,4 +13,5 @@
 #include "../pch.h"
 
 #define FAILURE_NONE 0x00
-#define UNDEFINED_ERROR 0x01
+#define UNDEFINED_ERROR 0xFF
+#define MPU_NOT_FOUND 0x01

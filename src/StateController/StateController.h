@@ -80,6 +80,14 @@ namespace FAR::StateController
         void setFailure(unsigned char failure);
 
         /**
+         * @brief Returns True or False based on if there is a Failure Code stored in the StateController
+         *
+         * @return true
+         * @return false
+         */
+        bool isFailure();
+
+        /**
          * @brief Returns the Current State as a String
          *
          * @return String
