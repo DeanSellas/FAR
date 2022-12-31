@@ -10,51 +10,53 @@
  */
 
 #include "src/pch.h"
-#include "src/mpu6050test/adafruit_mpu6050.h"
+#include "src/Sensors/MPU6050/mpu6050.h"
 #include "src/BasicLED/BasicRGB.h"
 #include "src/BasicLED/BasicLED.h"
 
 FAR::StateController::StateController* stateController;
 
 BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
-
+Sensors::MPU6050* mainMPU;
 bool endLoop = false;
 void setup(void)
 {
     Serial.begin(115200);
+    Serial.println("FAR Initilizing...");
     stateController = stateController->GetInstance();
     computerStatusLED_main.ledSetup();
 
-    Adafruit6050_setup();
-
+    mainMPU = new Sensors::MPU6050();
+    
     if (stateController->getFailureCode() == FAILURE_NONE)
     {
         stateController->setState(ON_PAD_TESTS);
-    }
-    else
-    {
-        stateController->setState(FAILURE);
     }
 }
 
 void loop(void)
 {
     // if error is thrown and logged, stop all code execution.
-    if(endLoop)
-        return;
 
     switch (stateController->getCurrentState())
     {
     // if failure do nothing
     case (FAILURE):
-        Serial.print("Failure Code: ");
-        Serial.println(stateController->getCurrentFailureToString());
-
+        if(!endLoop)
+        {
+            Serial.print("Failure Code: ");
+            Serial.println(stateController->getCurrentFailureToString());
+        }
+        computerStatusLED_main.redOn();
+        delay(1000);
+        computerStatusLED_main.redOff();
+        delay(1000);
         endLoop = true;
         return;
     case (ON_PAD_TESTS):
-        computerStatusLED_main.basicColorTest();
-        Serial.println(stateController->getCurrentStateToString());
+        computerStatusLED_main.blueOn();
+        mainMPU->Calibrate();
+        computerStatusLED_main.blueOff();
         stateController->setFailure(UNDEFINED_ERROR);
 
         return;
