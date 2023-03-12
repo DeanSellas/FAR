@@ -14,20 +14,25 @@
 #include "src/BasicLED/BasicRGB.h"
 #include "src/BasicLED/BasicLED.h"
 
-FAR::StateController::StateController* stateController;
+FAR::StateController::StateController *stateController;
 
 BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
-Sensors::MPU6050* mainMPU;
+Logger::Logger *mainLogger;
+
+Sensors::MPU6050 *mainMPU;
 bool endLoop = false;
 void setup(void)
 {
     Serial.begin(115200);
-    Serial.println("FAR Initilizing...");
+
+    mainLogger = mainLogger->GetInstance(DEBUG);
+
+    mainLogger->Write("FAR Initilizing...");
     stateController = stateController->GetInstance();
     computerStatusLED_main.ledSetup();
 
     mainMPU = new Sensors::MPU6050();
-    
+
     if (stateController->getFailureCode() == FAILURE_NONE)
     {
         stateController->setState(ON_PAD_TESTS);
@@ -42,10 +47,10 @@ void loop(void)
     {
     // if failure do nothing
     case (FAILURE):
-        if(!endLoop)
+        if (!endLoop)
         {
-            Serial.print("Failure Code: ");
-            Serial.println(stateController->getCurrentFailureToString());
+            mainLogger->Write("Failure Code: ");
+            mainLogger->Write(stateController->getCurrentFailureToString());
         }
         computerStatusLED_main.redOn();
         delay(1000);

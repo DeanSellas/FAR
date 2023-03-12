@@ -15,6 +15,7 @@
 #include "StateController/StateCodes.h"
 #include "StateController/FailureCodes.h"
 #include "StateController/StateController.h"
+#include "Logger/Logger.h"
 
 #include "BasicLED/LEDTypes.h"
 
