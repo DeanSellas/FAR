@@ -19,37 +19,55 @@ namespace Logger
     {
     private:
         int m_state;
+        bool m_serial;
         static Logger *m_instance;
-        Logger(int _state) : m_state(_state){};
+        Logger(int _state, bool _serial = true) : m_state(_state), m_serial(_serial)
+        {
+            if (m_serial)
+            {
+                Serial.begin(115200);
+            }
+        };
 
     public:
+        
         static Logger *GetInstance()
         {
-            if (!m_instance)
-            {
-                m_instance = new Logger(DEBUG);
-            }
-            return m_instance;
+            return GetInstance(States::Trace, true);
         };
+
+        static Logger *GetInstance(bool _serial)
+        {
+            return GetInstance(States::Debug, _serial);
+        };
+
         static Logger *GetInstance(int _state)
+        {
+            return GetInstance(_state, true);
+        };
+        static Logger *GetInstance(int _state, bool _serial)
         {
             if (!m_instance)
             {
-                m_instance = new Logger(DEBUG);
+                m_instance = new Logger(_state);
             }
             return m_instance;
         };
+
         ~Logger(){};
 
         template <typename T = const char *>
         void Logger::Write(T message)
         {
-            Serial.print(message);
+            if (m_serial)
+            {
+                Serial.print(message);
+            }
         }
         template <typename T = const char *>
         void Logger::Write(int state, T message)
         {
-            if (this->m_state <= state)
+            if (this->m_state <= state && m_serial)
             {
                 Serial.print(message);
             }
@@ -57,12 +75,15 @@ namespace Logger
         template <typename T = const char *>
         void Logger::Writeln(T message)
         {
-            Serial.println(message);
+            if (m_serial)
+            {
+                Serial.println(message);
+            }
         }
         template <typename T = const char *>
         void Logger::Writeln(int state, T message)
         {
-            if (this->m_state <= state)
+            if (this->m_state <= state && m_serial)
             {
                 Serial.println(message);
             }

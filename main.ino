@@ -23,9 +23,7 @@ Sensors::MPU6050 *mainMPU;
 bool endLoop = false;
 void setup(void)
 {
-    Serial.begin(115200);
-
-    mainLogger = mainLogger->GetInstance(DEBUG);
+    mainLogger = mainLogger->GetInstance(Logger::States::Debug);
 
     mainLogger->Write("FAR Initilizing...");
     stateController = stateController->GetInstance();
