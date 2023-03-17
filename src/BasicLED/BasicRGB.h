@@ -21,6 +21,8 @@ namespace BasicLED
         BasicLED *m_greenLED;
         BasicLED *m_blueLED;
         char onBit, offBit;
+        
+        Logger::Logger *mainLogger;
 
     public:
         /**

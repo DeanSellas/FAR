@@ -22,6 +22,7 @@ namespace Sensors
         FAR::StateController::StateController *m_stateController;
         float m_accelerationCalibration[3] = {0.0f, 0.0f, 0.0f}; // [x,y,z]
         float m_gyroCalibration[3] = {0.0f, 0.0f, 0.0f};         // [x,y,z]
+        Logger::Logger *mainLogger;
 
     public:
         /**
@@ -32,15 +33,15 @@ namespace Sensors
 
         /**
          * @brief Destroy the MPU6050 object
-         * 
+         *
          */
         ~MPU6050(){};
 
         /**
          * @brief Tries to connect to the MPU6050
-         * 
-         * @return true 
-         * @return false 
+         *
+         * @return true
+         * @return false
          */
         bool Connect();
 

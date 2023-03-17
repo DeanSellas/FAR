@@ -16,94 +16,95 @@ namespace Sensors
 {
     MPU6050::MPU6050()
     {
-        Serial.println("Adafruit MPU6050 test!");
+        mainLogger = mainLogger->GetInstance();
+        mainLogger->Writeln("Adafruit MPU6050 test!");
         m_stateController = m_stateController->GetInstance();
         // Try to initialize!
         if (!this->Connect())
         {
             int i = 0;
-            Serial.println("Failed to find MPU6050 chip");
-            Serial.print("Trying Again...");
+            mainLogger->Writeln("Failed to find MPU6050 chip");
+            mainLogger->Write("Trying Again...");
             while (i++ < 10 && !this->Connect())
             {
                 delay(1000);
-                Serial.print('.');
+                mainLogger->Write('.');
             }
             if (!m_connected)
             {
                 m_stateController->setFailure(MPU_NOT_FOUND);
-                Serial.println("No MPU6050 Found.");
+                mainLogger->Writeln("No MPU6050 Found.");
                 return;
             }
         }
-        Serial.println("MPU6050 Found!");
+        mainLogger->Writeln("MPU6050 Found!");
 
         m_adafruitMPU.setAccelerometerRange(MPU6050_RANGE_8_G);
         m_adafruitMPU.setGyroRange(MPU6050_RANGE_500_DEG);
         m_adafruitMPU.setFilterBandwidth(MPU6050_BAND_21_HZ);
 
 #if DEBUG
-        Serial.print("Accelerometer range set to: ");
+        mainLogger->Write("Accelerometer range set to: ");
         switch (m_adafruitMPU.getAccelerometerRange())
         {
         case MPU6050_RANGE_2_G:
-            Serial.println("+-2G");
+            mainLogger->Writeln("+-2G");
             break;
         case MPU6050_RANGE_4_G:
-            Serial.println("+-4G");
+            mainLogger->Writeln("+-4G");
             break;
         case MPU6050_RANGE_8_G:
-            Serial.println("+-8G");
+            mainLogger->Writeln("+-8G");
             break;
         case MPU6050_RANGE_16_G:
-            Serial.println("+-16G");
+            mainLogger->Writeln("+-16G");
             break;
         }
 
 
-        Serial.print("Gyro range set to: ");
+        mainLogger->Write("Gyro range set to: ");
         switch (m_adafruitMPU.getGyroRange())
         {
         case MPU6050_RANGE_250_DEG:
-            Serial.println("+- 250 deg/s");
+            mainLogger->Writeln("+- 250 deg/s");
             break;
         case MPU6050_RANGE_500_DEG:
-            Serial.println("+- 500 deg/s");
+            mainLogger->Writeln("+- 500 deg/s");
             break;
         case MPU6050_RANGE_1000_DEG:
-            Serial.println("+- 1000 deg/s");
+            mainLogger->Writeln("+- 1000 deg/s");
             break;
         case MPU6050_RANGE_2000_DEG:
-            Serial.println("+- 2000 deg/s");
+            mainLogger->Writeln("+- 2000 deg/s");
             break;
         }
-        Serial.print("Filter bandwidth set to: ");
+        mainLogger->Write("Filter bandwidth set to: ");
         switch (m_adafruitMPU.getFilterBandwidth())
         {
         case MPU6050_BAND_260_HZ:
-            Serial.println("260 Hz");
+            mainLogger->Writeln("260 Hz");
             break;
         case MPU6050_BAND_184_HZ:
-            Serial.println("184 Hz");
+            mainLogger->Writeln("184 Hz");
             break;
         case MPU6050_BAND_94_HZ:
-            Serial.println("94 Hz");
+            mainLogger->Writeln("94 Hz");
             break;
         case MPU6050_BAND_44_HZ:
-            Serial.println("44 Hz");
+            mainLogger->Writeln("44 Hz");
             break;
         case MPU6050_BAND_21_HZ:
-            Serial.println("21 Hz");
+            mainLogger->Writeln("21 Hz");
             break;
         case MPU6050_BAND_10_HZ:
-            Serial.println("10 Hz");
+            mainLogger->Writeln("10 Hz");
             break;
         case MPU6050_BAND_5_HZ:
-            Serial.println("5 Hz");
+            mainLogger->Writeln("5 Hz");
             break;
         }
 
-        Serial.println("");
+        mainLogger->Writeln("");
 #endif
 
         delay(100);
@@ -117,12 +118,12 @@ namespace Sensors
 
     void MPU6050::Calibrate(int samples = 100)
     {
-        Serial.print("Beginning MPU6050 Calibration\nPlease Do not move device durring this phase.");
+        mainLogger->Write("Beginning MPU6050 Calibration\nPlease Do not move device durring this phase.");
         float accelerationValues[3] = {0.0f, 0.0f, 0.0f};
         float gyroValues[3] = {0.0f, 0.0f, 0.0f};
         for (int i = 0; i < samples; i++)
         {
-            Serial.print('.');
+            mainLogger->Write('.');
             sensors_event_t a, g, t;
             m_adafruitMPU.getEvent(&a, &g, &t);
             accelerationValues[0] += a.acceleration.x;
@@ -142,20 +143,20 @@ namespace Sensors
         m_gyroCalibration[1] = gyroValues[1] / samples;
         m_gyroCalibration[2] = gyroValues[2] / samples;
 #if DEBUG
-        Serial.println("\nDone Calibrating!");
-        Serial.print("Offset Acceleration Values: ");
-        Serial.print(m_accelerationCalibration[0]);
-        Serial.print(", ");
-        Serial.print(m_accelerationCalibration[1]);
-        Serial.print(", ");
-        Serial.println(m_accelerationCalibration[2]);
+        mainLogger->Writeln("\nDone Calibrating!");
+        mainLogger->Write("Offset Acceleration Values: ");
+        mainLogger->Write(m_accelerationCalibration[0]);
+        mainLogger->Write(", ");
+        mainLogger->Write(m_accelerationCalibration[1]);
+        mainLogger->Write(", ");
+        mainLogger->Writeln(m_accelerationCalibration[2]);
 
-        Serial.print("Offset Gyro Values:");
-        Serial.print(m_gyroCalibration[0]);
-        Serial.print(", ");
-        Serial.print(m_gyroCalibration[1]);
-        Serial.print(", ");
-        Serial.println(m_gyroCalibration[2]);
+        mainLogger->Write("Offset Gyro Values:");
+        mainLogger->Write(m_gyroCalibration[0]);
+        mainLogger->Write(", ");
+        mainLogger->Write(m_gyroCalibration[1]);
+        mainLogger->Write(", ");
+        mainLogger->Writeln(m_gyroCalibration[2]);
 #endif
     }
 
@@ -167,26 +168,26 @@ namespace Sensors
         m_adafruitMPU.getEvent(&a, &g, &temp);
 
         /* Print out the values */
-        Serial.print("Acceleration X: ");
-        Serial.print(a.acceleration.x);
-        Serial.print(", Y: ");
-        Serial.print(a.acceleration.y);
-        Serial.print(", Z: ");
-        Serial.print(a.acceleration.z);
-        Serial.println(" m/s^2");
+        mainLogger->Write("Acceleration X: ");
+        mainLogger->Write(a.acceleration.x);
+        mainLogger->Write(", Y: ");
+        mainLogger->Write(a.acceleration.y);
+        mainLogger->Write(", Z: ");
+        mainLogger->Write(a.acceleration.z);
+        mainLogger->Writeln(" m/s^2");
 
-        Serial.print("Rotation X: ");
-        Serial.print(g.gyro.x);
-        Serial.print(", Y: ");
-        Serial.print(g.gyro.y);
-        Serial.print(", Z: ");
-        Serial.print(g.gyro.z);
-        Serial.println(" rad/s");
+        mainLogger->Write("Rotation X: ");
+        mainLogger->Write(g.gyro.x);
+        mainLogger->Write(", Y: ");
+        mainLogger->Write(g.gyro.y);
+        mainLogger->Write(", Z: ");
+        mainLogger->Write(g.gyro.z);
+        mainLogger->Writeln(" rad/s");
 
-        Serial.print("Temperature: ");
-        Serial.print(temp.temperature);
-        Serial.println(" degC");
+        mainLogger->Write("Temperature: ");
+        mainLogger->Write(temp.temperature);
+        mainLogger->Writeln(" degC");
 
-        Serial.println("");
+        mainLogger->Writeln("");
     }
 } // namespace Sensors::MPU6050

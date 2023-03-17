@@ -16,8 +16,8 @@
 
 FAR::StateController::StateController *stateController;
 
-BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
 Logger::Logger *mainLogger;
+BasicLED::BasicRGB computerStatusLED_main(12, 11, 10);
 
 Sensors::MPU6050 *mainMPU;
 bool endLoop = false;
@@ -61,7 +61,6 @@ void loop(void)
         mainMPU->Calibrate();
         computerStatusLED_main.blueOff();
         stateController->setFailure(UNDEFINED_ERROR);
-
         return;
     }
 }

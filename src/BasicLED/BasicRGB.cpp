@@ -18,7 +18,7 @@ namespace BasicLED
         m_redLED = new BasicLED(r, type);
         m_blueLED = new BasicLED(b, type);
         m_greenLED = new BasicLED(g, type);
-
+        
         switch (type)
         {
         case (LEDTypes::Cathode):
@@ -42,7 +42,7 @@ namespace BasicLED
     void BasicRGB::ledSetup()
     {
         turnOffAll();
-
+        mainLogger = mainLogger->GetInstance();
         // Init LED
         m_redLED->LEDSetup();
         m_greenLED->LEDSetup();
@@ -70,7 +70,7 @@ namespace BasicLED
 
     void BasicRGB::basicColorTest(int t = 1000)
     {
-        Serial.println("Begin Color Test");
+        mainLogger->Writeln("Begin Color Test");
         redOn();
         delay(t);
         redOff();
