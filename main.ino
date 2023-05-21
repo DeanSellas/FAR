@@ -11,8 +11,7 @@
 
 #include "src/pch.h"
 #include "src/Sensors/MPU6050/mpu6050.h"
-#include "src/BasicLED/BasicRGB.h"
-#include "src/BasicLED/BasicLED.h"
+
 
 FAR::StateController::StateController *stateController;
 
@@ -25,7 +24,7 @@ void setup(void)
 {
     mainLogger = mainLogger->GetInstance(Logger::States::Debug);
 
-    mainLogger->Write("FAR Initilizing...");
+    mainLogger->Writeln("FAR Initilizing...");
     stateController = stateController->GetInstance();
     computerStatusLED_main.ledSetup();
 

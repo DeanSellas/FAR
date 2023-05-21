@@ -142,6 +142,7 @@ namespace Sensors
         m_gyroCalibration[0] = gyroValues[0] / samples;
         m_gyroCalibration[1] = gyroValues[1] / samples;
         m_gyroCalibration[2] = gyroValues[2] / samples;
+        mainLogger->Writeln("");      
 #if DEBUG
         mainLogger->Writeln("\nDone Calibrating!");
         mainLogger->Write("Offset Acceleration Values: ");

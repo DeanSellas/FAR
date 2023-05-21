@@ -17,7 +17,9 @@
 #include "StateController/StateController.h"
 #include "Logger/Logger.h"
 
-#include "BasicLED/LEDTypes.h"
+#include "vendor/BasicLED/src/LEDTypes.h"
+#include "vendor/BasicLED/src/BasicLED.h"
+#include "vendor/BasicLED/src/BasicRGB.h"
 
 // Debug Value used to disable Serial Logging (saves a lot of memory)
 #define DEBUG 0
