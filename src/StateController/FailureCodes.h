@@ -12,6 +12,6 @@
 
 #include "../pch.h"
 
-#define FAILURE_NONE 0x00
-#define UNDEFINED_ERROR 0xFF
-#define MPU_NOT_FOUND 0x01
+#define FAILURE_NONE 0x00       // No Failure
+#define UNDEFINED_ERROR 0xFF    // Unknown Failure... Please create a report so it can be debugged and added to the software
+#define MPU_NOT_FOUND 0x01      // MPU6050 not detected. CRITICAL ERROR - Rocket will not launch.

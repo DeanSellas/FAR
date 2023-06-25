@@ -47,7 +47,7 @@ namespace FAR::StateController
             return "Testing Sequence";
         case READY_FOR_LAUNCH:
             return "Ready For Launch";
-        case FLIGHT:
+        case ASCENT:
             return "In Flight";
         case COAST:
             return "Coasting";
