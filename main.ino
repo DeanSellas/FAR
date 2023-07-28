@@ -11,6 +11,7 @@
 
 #include "src/pch.h"
 #include "src/Sensors/MPU6050/mpu6050.h"
+#include "src/Sensors/BME280/bme280.h"
 
 
 FAR::StateController::StateController *stateController;
