@@ -1,6 +1,6 @@
 /**
  * @file mpu6050.cpp
- * @author Dean Sellas (dgsellas@gmail.com)
+ * @author Dean Sellas (dean@deansellas.com)
  * @brief mpu6050 code, currently based on adafruits demo. will change it in the future.
  * @version 0.1
  * @date 2022-10-17

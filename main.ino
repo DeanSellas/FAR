@@ -1,6 +1,6 @@
 /**
  * @file main.ino
- * @author Dean Sellas (dgsellas@gmail.com)
+ * @author Dean Sellas (dean@deansellas.com)
  * @brief Main Execution Code for the flight controller. This will handle all the flight specific code and link together all the subsystems.
  * @version 0.1
  * @date 2022-09-18
@@ -20,6 +20,7 @@ Logger::Logger *mainLogger;
 BasicLED::BasicRGB *computerStatusLED_main = new BasicLED::BasicRGB(12, 11, 10);
 
 Sensors::MPU6050 *mainMPU;
+Sensors::BME280 *mainBME;
 bool endLoop = false, isLanded = false;
 void setup(void)
 {
@@ -30,6 +31,7 @@ void setup(void)
     computerStatusLED_main->ledSetup();
 
     mainMPU = new Sensors::MPU6050();
+    mainBME = new Sensors::BME280();
 
     if (stateController->getFailureCode() == FAILURE_NONE)
     {
@@ -64,6 +66,7 @@ void loop(void)
     case (ON_PAD_TESTS):
         computerStatusLED_main->blueOn();
         mainMPU->Calibrate();
+        mainBME->Calibrate();
         computerStatusLED_main->blueOff();
         //stateController->setFailure(UNDEFINED_ERROR);
         mainLogger->Writeln("On Pad Tests Done... All Systems GO for launch!");
@@ -90,7 +93,9 @@ void loop(void)
 void cleanup()
 {
     delete mainMPU;
+    delete mainBME;
     mainMPU = NULL;
+    mainBME = NULL;
     isLanded = true;
     return;
 }

@@ -1,6 +1,6 @@
 /**
  * @file StateController.cpp
- * @author Dean Sellas (dgsellas@gmail.com)
+ * @author Dean Sellas (dean@deansellas.com)
  * @brief State Controller
  * @version 0.1
  * @date 2022-09-20

@@ -1,6 +1,6 @@
 /**
  * @file Logger.cpp
- * @author Dean Sellas (dgsellas@gmail.com)
+ * @author Dean Sellas (dean@deansellas.com)
  * @brief
  * @version 0.1
  * @date 2023-03-11

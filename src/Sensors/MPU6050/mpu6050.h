@@ -1,6 +1,6 @@
 /**
  * @file MPU6050.h
- * @author Dean Sellas (dgsellas@gmail.com)
+ * @author Dean Sellas (dean@deansellas.com)
  * @brief
  * @version 0.1
  * @date 2022-10-17
