@@ -26,7 +26,7 @@ void setup(void)
 {
     mainLogger = mainLogger->GetInstance(Logger::States::Debug);
 
-    mainLogger->Writeln("FAR Initilizing...");
+    mainLogger->Writeln("FAR Initializing...");
     stateController = stateController->GetInstance();
     computerStatusLED_main->ledSetup();
 

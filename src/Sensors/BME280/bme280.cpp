@@ -15,9 +15,7 @@ namespace Sensors
 {
     BME280::BME280()
     {
-        mainLogger = mainLogger->GetInstance();
         mainLogger->Writeln("Adafruit BME280 Test");
-        m_stateController = m_stateController->GetInstance();
 
         // try to initialize
         if(!this->Connect())
@@ -46,9 +44,9 @@ namespace Sensors
         return m_connected;
     }
 
-    void BME280::Calibrate()
+    void BME280::Calibrate(int samples = 100)
     {
-        this->surface_pressure = SetSurfacePressure(100);
+        this->surface_pressure = SetSurfacePressure(samples);
     }
 
     float BME280::SetSurfacePressure(int samples = 1)

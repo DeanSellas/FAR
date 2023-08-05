@@ -11,18 +11,16 @@
 
 #pragma once
 #include <Adafruit_MPU6050.h>
-#include "../../StateController/StateController.h"
+#include "../sensor.h"
+
 namespace Sensors
 {
-    class MPU6050
+    class MPU6050 : public Sensor
     {
     private:
         Adafruit_MPU6050 m_adafruitMPU;
-        bool m_connected = false;
-        FAR::StateController::StateController *m_stateController;
         float m_accelerationCalibration[3] = {0.0f, 0.0f, 0.0f}; // [x,y,z]
         float m_gyroCalibration[3] = {0.0f, 0.0f, 0.0f};         // [x,y,z]
-        Logger::Logger *mainLogger;
 
     public:
         /**
