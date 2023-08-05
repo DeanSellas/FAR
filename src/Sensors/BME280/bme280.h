@@ -1,7 +1,7 @@
 /**
  * @file bme280.h
  * @author Dean Sellas (dean@deansellas.com)
- * @brief 
+ * @brief BME280 Class
  * @version 0.1
  * @date 2023-07-27
  * 
@@ -11,10 +11,11 @@
 
 #pragma once
 #include <Adafruit_BME280.h>
-#include "../../StateController/StateController.h"
+#include "../sensor.h"
+
 namespace Sensors
 {
-    class BME280
+    class BME280 : public Sensor
     {
     private:
         // generic sea level pressure.
@@ -22,11 +23,6 @@ namespace Sensors
         float surface_pressure;
 
         Adafruit_BME280 m_adafruitBME;
-        bool m_connected = false;
-        
-        FAR::StateController::StateController *m_stateController;
-        Logger::Logger *mainLogger;
-
 
     public:
         /**
@@ -52,7 +48,7 @@ namespace Sensors
          * @brief Calibrates the BME280
          * 
          */
-        void Calibrate();
+        void Calibrate(int samples = 100);
 
         /**
          * @brief Sets the Surface Pressure
