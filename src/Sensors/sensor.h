@@ -47,7 +47,7 @@ namespace Sensors
          * @brief Calibrates the BME280
          * 
          */
-        virtual void Calibrate(int samples = 100) = 0;
+        virtual void Calibrate(unsigned int samples = 100) = 0;
 
     };
     

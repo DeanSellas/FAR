@@ -48,7 +48,7 @@ namespace Sensors
          * @brief Calibrates the BME280
          * 
          */
-        void Calibrate(int samples = 100);
+        void Calibrate(unsigned int samples = 100);
 
         /**
          * @brief Sets the Surface Pressure
@@ -56,7 +56,7 @@ namespace Sensors
          * @param samples how many times to sample pressure; more samples the more accurate.
          * @return float 
          */
-        float SetSurfacePressure(int samples = 1);
+        float SetSurfacePressure(unsigned int samples = 1);
 
         /**
          * @brief Get the Surface Pressure

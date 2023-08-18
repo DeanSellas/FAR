@@ -43,7 +43,7 @@ namespace Sensors
          */
         bool Connect();
 
-        void Calibrate(int samples = 100);
+        void Calibrate(unsigned int samples = 100);
 
         void PrintValues();
     };

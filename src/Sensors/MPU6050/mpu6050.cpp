@@ -22,7 +22,7 @@ namespace Sensors
         // Try to initialize!
         if (!this->Connect())
         {
-            int i = 0;
+            byte i = 0;
             mainLogger->Writeln("Failed to find MPU6050 chip");
             mainLogger->Write("Trying Again...");
             while (i++ < 10 && !this->Connect())
@@ -116,7 +116,7 @@ namespace Sensors
         return m_connected;
     }
 
-    void MPU6050::Calibrate(int samples = 100)
+    void MPU6050::Calibrate(unsigned int samples = 100)
     {
         mainLogger->Write("Beginning MPU6050 Calibration\nPlease Do not move device durring this phase.");
         float accelerationValues[3] = {0.0f, 0.0f, 0.0f};

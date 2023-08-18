@@ -54,8 +54,8 @@ void loop(void)
     case (FAILURE):
         if (!endLoop)
         {
-            mainLogger->Write("Failure Code: ");
-            mainLogger->Write(stateController->getCurrentFailureToString());
+            mainLogger->Write("Failure Code: ", Logger::States::Error);
+            mainLogger->Write(stateController->getCurrentFailureToString(), Logger::States::Error);
         }
         computerStatusLED_main->redOn();
         delay(1000);
@@ -69,7 +69,7 @@ void loop(void)
         mainBME->Calibrate();
         computerStatusLED_main->blueOff();
         //stateController->setFailure(UNDEFINED_ERROR);
-        mainLogger->Writeln("On Pad Tests Done... All Systems GO for launch!");
+        mainLogger->Writeln("On Pad Tests Done... All Systems GO for launch!", Logger::States::Info);
         stateController->setState(READY_FOR_LAUNCH);
         return;
     case (ASCENT):

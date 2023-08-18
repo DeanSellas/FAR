@@ -15,6 +15,7 @@ namespace Logger
 {
     // initialize state controller to nullptr on launch
     Logger *Logger::m_instance = nullptr;
+
     const char *Logger::CurrentState()
     {
         switch (this->m_state)
@@ -33,4 +34,5 @@ namespace Logger
             return "CRITICAL";
         }
     }
+
 } // namespace Logger

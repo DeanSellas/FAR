@@ -20,7 +20,7 @@ namespace Sensors
         // try to initialize
         if(!this->Connect())
         {
-            int i = 0;
+            byte i = 0;
             mainLogger->Writeln("Failed to find BME280 chip");
             mainLogger->Write("Trying Again...");
             while (i++ < 10 && !this->Connect())
@@ -44,14 +44,14 @@ namespace Sensors
         return m_connected;
     }
 
-    void BME280::Calibrate(int samples = 100)
+    void BME280::Calibrate(unsigned int samples = 100)
     {
         mainLogger->Writeln("Beginning BME280 Calibration\nPlease Do not move device durring this phase.");
         this->surface_pressure = SetSurfacePressure(samples);
         mainLogger->Writeln("Done Calibrating BME280");
     }
 
-    float BME280::SetSurfacePressure(int samples = 1)
+    float BME280::SetSurfacePressure(unsigned int samples = 1)
     {
         float average = 0.0f;
 
