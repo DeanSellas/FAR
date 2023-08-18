@@ -46,7 +46,9 @@ namespace Sensors
 
     void BME280::Calibrate(int samples = 100)
     {
+        mainLogger->Writeln("Beginning BME280 Calibration\nPlease Do not move device durring this phase.");
         this->surface_pressure = SetSurfacePressure(samples);
+        mainLogger->Writeln("Done Calibrating BME280");
     }
 
     float BME280::SetSurfacePressure(int samples = 1)

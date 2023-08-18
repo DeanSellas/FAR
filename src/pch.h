@@ -11,12 +11,20 @@
 
 #pragma once
 
+
+// Arduino Includes
 #include <Arduino.h>
+
+// State Controller Includes
 #include "StateController/StateCodes.h"
 #include "StateController/FailureCodes.h"
 #include "StateController/StateController.h"
-#include "Logger/Logger.h"
 
+// Logger Includes
+#include "Logger/Logger.h"
+#include "Logger/LoggerStates.h"
+
+// BasicLED Includes
 #include "vendor/BasicLED/src/LEDTypes.h"
 #include "vendor/BasicLED/src/BasicLED.h"
 #include "vendor/BasicLED/src/BasicRGB.h"
