@@ -22,16 +22,16 @@ namespace Sensors
         {
             byte i = 0;
             mainLogger->Writeln("Failed to find BME280 chip");
-            mainLogger->Write("Trying Again...");
+            //mainLogger->Write("Trying Again...");
             while (i++ < 10 && !this->Connect())
             {
                 delay(1000);
-                mainLogger->Write('.');
+                //mainLogger->Write('.');
             }
             if (!m_connected)
             {
                 m_stateController->setFailure(BME_NOT_FOUND);
-                mainLogger->Writeln("No BME280 Found.");
+                mainLogger->Writeln("No BME280 Found.", Logger::States::Error);
                 return;
             }
         }

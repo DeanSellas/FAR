@@ -23,17 +23,17 @@ namespace Sensors
         if (!this->Connect())
         {
             byte i = 0;
-            mainLogger->Writeln("Failed to find MPU6050 chip");
-            mainLogger->Write("Trying Again...");
+            mainLogger->Writeln("Failed to find MPU6050 chip", Logger::States::Warn);
+            //mainLogger->Write("Trying Again...");
             while (i++ < 10 && !this->Connect())
             {
                 delay(1000);
-                mainLogger->Write('.');
+                //mainLogger->Write('.');
             }
             if (!m_connected)
             {
                 m_stateController->setFailure(MPU_NOT_FOUND);
-                mainLogger->Writeln("No MPU6050 Found.");
+                mainLogger->Writeln("No MPU6050 Found.", Logger::States::Error);
                 return;
             }
         }
@@ -118,12 +118,12 @@ namespace Sensors
 
     void MPU6050::Calibrate(unsigned int samples = 100)
     {
-        mainLogger->Write("Beginning MPU6050 Calibration\nPlease Do not move device durring this phase.");
+        mainLogger->Writeln("Beginning MPU6050 Calibration... Please Do not move device durring this phase.", Logger::States::Info);
         float accelerationValues[3] = {0.0f, 0.0f, 0.0f};
         float gyroValues[3] = {0.0f, 0.0f, 0.0f};
         for (int i = 0; i < samples; i++)
         {
-            mainLogger->Write('.');
+            //mainLogger->Write('.');
             sensors_event_t a, g, t;
             m_adafruitMPU.getEvent(&a, &g, &t);
             accelerationValues[0] += a.acceleration.x;
@@ -168,27 +168,23 @@ namespace Sensors
         sensors_event_t a, g, temp;
         m_adafruitMPU.getEvent(&a, &g, &temp);
 
-        /* Print out the values */
-        mainLogger->Write("Acceleration X: ");
-        mainLogger->Write(a.acceleration.x);
-        mainLogger->Write(", Y: ");
-        mainLogger->Write(a.acceleration.y);
-        mainLogger->Write(", Z: ");
-        mainLogger->Write(a.acceleration.z);
-        mainLogger->Writeln(" m/s^2");
+        String message = "Acceleration X: ";
+        message += a.acceleration.x;
+        message += ", Y: ";
+        message += a.acceleration.y;
+        message += ", Z: ";
+        message += a.acceleration.z;
+        message += " m/s^2";
 
-        mainLogger->Write("Rotation X: ");
-        mainLogger->Write(g.gyro.x);
-        mainLogger->Write(", Y: ");
-        mainLogger->Write(g.gyro.y);
-        mainLogger->Write(", Z: ");
-        mainLogger->Write(g.gyro.z);
-        mainLogger->Writeln(" rad/s");
+        mainLogger->Writeln(message, Logger::States::Info);
 
-        mainLogger->Write("Temperature: ");
-        mainLogger->Write(temp.temperature);
-        mainLogger->Writeln(" degC");
-
-        mainLogger->Writeln("");
+        message = "Rotation X: ";
+        message += g.gyro.x;
+        message += ", Y: ";
+        message += g.gyro.y;
+        message += ", Z: ";
+        message += g.gyro.z;
+        message += " rad/s";
+        mainLogger->Writeln(message, Logger::States::Info);
     }
 } // namespace Sensors::MPU6050

@@ -54,8 +54,8 @@ void loop(void)
     case (FAILURE):
         if (!endLoop)
         {
-            mainLogger->Write("Failure Code: ", Logger::States::Error);
-            mainLogger->Write(stateController->getCurrentFailureToString(), Logger::States::Error);
+            //mainLogger->Write("Failure Code: ", Logger::States::Error);
+            mainLogger->Writeln(stateController->getCurrentFailureToString(), Logger::States::Error);
         }
         computerStatusLED_main->redOn();
         delay(1000);

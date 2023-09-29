@@ -30,6 +30,31 @@ namespace Logger
             }
         };
 
+        const char* LogStateToString(byte state)
+        {
+            switch (state)
+            {
+            case States::Trace:
+                return "[Trace]: ";
+                break;
+            case States::Debug:
+                return "[Debug]: ";
+                break;
+            case States::Info:
+                return "[Info]: ";
+                break;
+            case States::Warn:
+                return "[Warn]: ";
+                break;
+            case States::Error:
+                return "[Error]: ";
+                break;
+            default:
+                return "[UNKOWN]";
+                break;
+            }
+        };
+
     public:
         
         static Logger *GetInstance(byte _state = States::Debug, bool _serial = true)
@@ -47,20 +72,22 @@ namespace Logger
             m_instance = nullptr;
         };
 
-        template <typename T = const char *>
-        void Logger::Write(T message, byte state = States::Debug)
-        {
-            if (this->m_state <= state && m_serial)
-            {
-                Serial.print(message);
-            }
-        }
+        // template <typename T = const char *>
+        // void Logger::Write(T message, byte state = States::Debug)
+        // {
+        //     if (this->m_state <= state && m_serial)
+        //     {
+        //         Serial.print(message);
+        //     }
+        // }
         template <typename T = const char *>
         void Logger::Writeln(T message, byte state = States::Debug)
         {
+            String m = LogStateToString(state);
+            m += message;
             if (this->m_state <= state && m_serial)
             {
-                Serial.println(message);
+                Serial.println(m);
             }
         }
 
